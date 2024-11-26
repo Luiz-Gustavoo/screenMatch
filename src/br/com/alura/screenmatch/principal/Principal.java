@@ -5,13 +5,7 @@ import br.com.alura.screenmatch.calculo.FiltroRecomendacao;
 import br.com.alura.screenmatch.modelos.Episodio;
 import br.com.alura.screenmatch.modelos.Filme;
 import br.com.alura.screenmatch.modelos.Serie;
-import br.com.pratica.castdetipos.modelos.Animal;
-import br.com.pratica.castdetipos.modelos.Cachorro;
-import br.com.pratica.formasgeometricas2.calculos.Forma;
-import br.com.pratica.formasgeometricas2.modelos.Circulo;
-import br.com.pratica.formasgeometricas2.modelos.Quadrado;
-import br.com.pratica.lojadeprodutos.modelos.Produto;
-import br.com.pratica.contabancaria.modelos.ContaBancaria;
+
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
