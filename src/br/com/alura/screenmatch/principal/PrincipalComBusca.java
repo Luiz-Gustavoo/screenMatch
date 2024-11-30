@@ -12,7 +12,7 @@ public class PrincipalComBusca {
 
         Scanner teclado = new Scanner(System.in);
         System.out.println("Qual filme quer buscar?: ");
-        String filme = teclado.nextLine(); // usar o replace para trocar espaçosvazios por + e passar na url
+        String filme = teclado.nextLine();
         filme = filme.replaceAll("\\s", "+");
         System.out.println(filme);
 
