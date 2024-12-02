@@ -1,5 +1,8 @@
 package br.com.alura.screenmatch.principal;
 
+import br.com.alura.screenmatch.modelos.Titulo;
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -14,7 +17,6 @@ public class PrincipalComBusca {
         System.out.println("Qual filme quer buscar?: ");
         String filme = teclado.nextLine();
         filme = filme.replaceAll("\\s", "+");
-        System.out.println(filme);
 
         String endereco = ("https://omdbapi.com/?t="+filme+"&apikey=7589c63");
 
@@ -24,9 +26,15 @@ public class PrincipalComBusca {
                 .uri(URI.create(endereco))
                 .build();
 
-        HttpResponse response = client
+        HttpResponse<String> response = client
                 .send(request, HttpResponse.BodyHandlers.ofString());
 
-        System.out.println(response.body());
+        String json = response.body();
+        System.out.println(json);
+
+        Gson gson = new Gson();
+        Titulo tituloConvertido = gson.fromJson(json, Titulo.class);
+        System.out.println(tituloConvertido);
+
     }
 }
