@@ -1,6 +1,5 @@
 package br.com.alura.screenmatch.principal;
 
-import br.com.alura.screenmatch.modelos.Estudante;
 import br.com.alura.screenmatch.modelos.Titulo;
 import br.com.alura.screenmatch.modelos.TituloOmdb;
 import com.google.gson.FieldNamingPolicy;
@@ -17,15 +16,14 @@ import java.util.Scanner;
 public class PrincipalComBusca {
     public static void main(String[] args) throws IOException, InterruptedException {
 
-            Scanner teclado = new Scanner(System.in);
-            System.out.println("Qual filme quer buscar?: ");
-            String filme = teclado.nextLine();
-            filme = filme.replaceAll("\\s", "+");
+        Scanner teclado = new Scanner(System.in);
+        System.out.println("Qual filme quer buscar?: ");
+        String filme = teclado.nextLine();
+        //filme = filme.replaceAll("\\s", "+");
 
-            String endereco = ("https://omdbapi.com/?t="+filme+"&apikey=7589c63");
-
+        String endereco = ("https://omdbapi.com/?t="+filme+"&apikey=7589c63");
+        try {
             HttpClient client = HttpClient.newHttpClient();
-
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(endereco))
                     .build();
@@ -40,15 +38,18 @@ public class PrincipalComBusca {
 
             TituloOmdb TituloOmdb = gson.fromJson(json, TituloOmdb.class);
 
-            try {
-                Titulo tituloConvertido = new Titulo(TituloOmdb);
-                System.out.println("*****Título convertido*****");
-                System.out.println(tituloConvertido);
-            } catch (NumberFormatException erro) {
-                System.out.println("Aconteceu um erro:");
-                System.out.println(erro.getMessage());
-            }
-        System.out.println("Programa finalizado");
+            //try {
+            Titulo tituloConvertido = new Titulo(TituloOmdb);
+            System.out.println("*****Título convertido*****");
+            System.out.println(tituloConvertido);
+        } catch (NumberFormatException erro) {
+            System.out.println("Erro na conversão de texto para número");
+
+        } catch (IllegalArgumentException erro) {
+            System.out.println("Erro de argumento na busca. Verifique o parâmetro que está sendo buscado");
+        } finally {
+            System.out.println("Fim da execução");
         }
     }
+}
 
