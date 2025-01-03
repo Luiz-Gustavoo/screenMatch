@@ -7,10 +7,7 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
@@ -43,22 +40,22 @@ public class PrincipalComBusca {
             TituloOmdb TituloOmdb = gson.fromJson(json, TituloOmdb.class);
             Titulo tituloConvertido = new Titulo(TituloOmdb);
 
-            //System.out.println(tituloConvertido);
-
             FileWriter escrita = new FileWriter("D:\\Windows Sistema\\Documentos\\Filmes.txt");
             escrita.write(tituloConvertido.toString());
             escrita.close();
 
-            File arquivo = new File("D:\\Windows Sistema\\Documentos\\Filmes.txt");
+            try {
+                File arquivo = new File("D:\\Windows Sistema\\Documentos\\Filmes.txt");
+                Scanner leitura =  new Scanner(arquivo);
 
-            Scanner leitura =  new Scanner(arquivo);
-
-            while (leitura.hasNextLine()) {
-
-                String texto = leitura.nextLine();
-                System.out.println(texto);
+                while (leitura.hasNextLine()) {
+                    String texto = leitura.nextLine();
+                    System.out.println(texto);
+                }
+                leitura.close();
+            } catch(FileNotFoundException e) {
+                System.out.println("Não foi possível encontrar o arquivo. Verifique se ele existe e  se o nome está correto");
             }
-            leitura.close();
 
         } catch (NumberFormatException erro) {
             System.out.println("Erro na conversão de texto para número");
