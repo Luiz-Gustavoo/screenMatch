@@ -25,10 +25,6 @@ public class PrincipalComBusca {
             System.out.println("Qual filme quer buscar?: ");
             busca = teclado.nextLine();
 
-            if (busca == "sair") {
-                break;
-            }
-
             if (busca.equalsIgnoreCase("sair")) {
                 break;
             }
@@ -46,12 +42,14 @@ public class PrincipalComBusca {
                         .send(request, HttpResponse.BodyHandlers.ofString());
 
                 String json = response.body();
+                System.out.println(json);
 
                 Gson gson = new GsonBuilder()
                         .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
 
                 TituloOmdb TituloOmdb = gson.fromJson(json, TituloOmdb.class);
                 Titulo tituloConvertido = new Titulo(TituloOmdb);
+                System.out.println(tituloConvertido);
 
                 FileWriter escrita = new FileWriter("D:\\Windows Sistema\\Documentos\\Filmes.txt");
                 escrita.write(tituloConvertido.toString());
