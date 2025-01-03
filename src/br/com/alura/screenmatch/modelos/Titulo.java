@@ -24,7 +24,16 @@ public class Titulo implements Comparable<Titulo> {
             throw new ErroDeConversaoDeAnoException("O ano possui mais de 4 caracteres");
         }
         this.anoDeLancamento = Integer.valueOf(tituloOmdb.year());
-        this.duracaoEmMinutos = Integer.valueOf(tituloOmdb.runtime().substring(0, 2));
+
+        int posicaoMin = tituloOmdb.runtime().toLowerCase().indexOf("min");
+        String runtime = tituloOmdb.runtime();
+
+        if (posicaoMin != -1) {
+            this.duracaoEmMinutos = Integer.parseInt(runtime.substring(0, posicaoMin));
+        } else {
+            this.duracaoEmMinutos = 0;
+        }
+
     }
 
     public String getNome() {
