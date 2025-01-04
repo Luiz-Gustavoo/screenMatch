@@ -19,10 +19,14 @@ import java.util.Scanner;
 public class PrincipalComBusca {
     public static void main(String[] args) throws IOException, InterruptedException {
 
+        Gson gson = new GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
+
         Scanner teclado = new Scanner(System.in);
 
         String busca = "";
         List<Titulo> titulos = new ArrayList<>();
+
         while (!busca.equalsIgnoreCase("sair")) {
 
             System.out.println("Qual filme quer buscar?: ");
@@ -45,10 +49,6 @@ public class PrincipalComBusca {
                         .send(request, HttpResponse.BodyHandlers.ofString());
 
                 String json = response.body();
-                System.out.println(json);
-
-                Gson gson = new GsonBuilder()
-                        .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
 
                 TituloOmdb TituloOmdb = gson.fromJson(json, TituloOmdb.class);
                 Titulo tituloConvertido = new Titulo(TituloOmdb);
@@ -67,16 +67,12 @@ public class PrincipalComBusca {
             }
         }
 
-//        for(Titulo itens: titulos) {
-//            System.out.println(itens.toString());
-//        }
-
-        FileWriter escrita = new FileWriter("D:\\Windows Sistema\\Documentos\\Filmes.txt");
-        escrita.write(titulos.toString());
+        FileWriter escrita = new FileWriter("Filmes.txt");
+        escrita.write(gson.toJson(titulos));
         escrita.close();
 
         try {
-            File arquivo = new File("D:\\Windows Sistema\\Documentos\\Filmes.txt");
+            File arquivo = new File("Filmes.txt");
             Scanner leitura = new Scanner(arquivo);
 
             while (leitura.hasNextLine()) {
