@@ -12,6 +12,8 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class PrincipalComBusca {
@@ -20,6 +22,7 @@ public class PrincipalComBusca {
         Scanner teclado = new Scanner(System.in);
 
         String busca = "";
+        List<Titulo> titulos = new ArrayList<>();
         while (!busca.equalsIgnoreCase("sair")) {
 
             System.out.println("Qual filme quer buscar?: ");
@@ -49,24 +52,8 @@ public class PrincipalComBusca {
 
                 TituloOmdb TituloOmdb = gson.fromJson(json, TituloOmdb.class);
                 Titulo tituloConvertido = new Titulo(TituloOmdb);
-                System.out.println(tituloConvertido);
 
-                FileWriter escrita = new FileWriter("D:\\Windows Sistema\\Documentos\\Filmes.txt");
-                escrita.write(tituloConvertido.toString());
-                escrita.close();
-
-                try {
-                    File arquivo = new File("D:\\Windows Sistema\\Documentos\\Filmes.txt");
-                    Scanner leitura = new Scanner(arquivo);
-
-                    while (leitura.hasNextLine()) {
-                        String texto = leitura.nextLine();
-                        System.out.println(texto);
-                    }
-                    leitura.close();
-                } catch (FileNotFoundException e) {
-                    System.out.println("Não foi possível encontrar o arquivo. Verifique se ele existe e  se o nome está correto");
-                }
+                titulos.add(tituloConvertido);
 
             } catch (NumberFormatException erro) {
                 System.out.println("Erro na conversão de texto para número");
@@ -79,6 +66,29 @@ public class PrincipalComBusca {
                 System.out.println("Fim da execução");
             }
         }
+
+//        for(Titulo itens: titulos) {
+//            System.out.println(itens.toString());
+//        }
+
+        FileWriter escrita = new FileWriter("D:\\Windows Sistema\\Documentos\\Filmes.txt");
+        escrita.write(titulos.toString());
+        escrita.close();
+
+        try {
+            File arquivo = new File("D:\\Windows Sistema\\Documentos\\Filmes.txt");
+            Scanner leitura = new Scanner(arquivo);
+
+            while (leitura.hasNextLine()) {
+                String texto = leitura.nextLine();
+                System.out.println(texto);
+            }
+            leitura.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("Não foi possível encontrar o arquivo. Verifique se ele existe e  se o nome está correto");
+        }
+
+        System.out.println("Programa finalizado");
     }
 }
 
