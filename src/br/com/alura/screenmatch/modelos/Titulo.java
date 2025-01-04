@@ -29,7 +29,7 @@ public class Titulo implements Comparable<Titulo> {
         String runtime = tituloOmdb.runtime();
 
         if (posicaoMin != -1) {
-            this.duracaoEmMinutos = Integer.parseInt(runtime.substring(0, posicaoMin));
+            this.duracaoEmMinutos = Integer.parseInt(runtime.substring(0, posicaoMin).trim());
         } else {
             this.duracaoEmMinutos = 0;
         }
