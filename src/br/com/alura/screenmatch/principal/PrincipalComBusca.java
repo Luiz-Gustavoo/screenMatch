@@ -20,7 +20,9 @@ public class PrincipalComBusca {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         Gson gson = new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
+                .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
+                .setPrettyPrinting()
+                .create();
 
         Scanner teclado = new Scanner(System.in);
 
