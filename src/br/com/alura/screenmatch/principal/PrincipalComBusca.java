@@ -1,18 +1,17 @@
 package br.com.alura.screenmatch.principal;
 
-import br.com.alura.screenmatch.excecao.ErroDeConversaoDeAnoException;
 import br.com.alura.screenmatch.modelos.Titulo;
 import br.com.alura.screenmatch.modelos.TituloOmdb;
 import br.com.alura.screenmatch.services.ConsumirAPI;
+import br.com.alura.screenmatch.services.ConverteDados;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import java.io.*;
-import java.net.URI;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -45,6 +44,12 @@ public class PrincipalComBusca {
             ConsumirAPI consumirAPI = new ConsumirAPI();
             String retornoAPI = consumirAPI.consumirAPI(endereco);
             System.out.println(retornoAPI);
+
+            ConverteDados converteDados = new ConverteDados();
+            TituloOmdb tituloOmdb = converteDados.converteDados(retornoAPI, TituloOmdb.class);
+            Titulo tituloConvertido = new Titulo(tituloOmdb);
+            System.out.println(tituloConvertido);
+
         }
 
         FileWriter escrita = new FileWriter("Filmes.txt");
