@@ -3,6 +3,7 @@ package br.com.alura.screenmatch.principal;
 import br.com.alura.screenmatch.excecao.ErroDeConversaoDeAnoException;
 import br.com.alura.screenmatch.modelos.Titulo;
 import br.com.alura.screenmatch.modelos.TituloOmdb;
+import br.com.alura.screenmatch.services.ConsumirAPI;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -41,32 +42,9 @@ public class PrincipalComBusca {
             busca = busca.replaceAll("\\s", "+");
 
             String endereco = ("https://omdbapi.com/?t=" + busca + "&apikey=7589c63");
-            try {
-                HttpClient client = HttpClient.newHttpClient();
-                HttpRequest request = HttpRequest.newBuilder()
-                        .uri(URI.create(endereco))
-                        .build();
-
-                HttpResponse<String> response = client
-                        .send(request, HttpResponse.BodyHandlers.ofString());
-
-                String json = response.body();
-
-                TituloOmdb TituloOmdb = gson.fromJson(json, TituloOmdb.class);
-                Titulo tituloConvertido = new Titulo(TituloOmdb);
-
-                titulos.add(tituloConvertido);
-
-            } catch (NumberFormatException erro) {
-                System.out.println("Erro na conversão de texto para número");
-
-            } catch (IllegalArgumentException erro) {
-                System.out.println("Erro de argumento na busca. Verifique o parâmetro que está sendo buscado");
-            } catch (ErroDeConversaoDeAnoException erro) {
-                System.out.println(erro.getMessage());
-            } finally {
-                System.out.println("Fim da execução");
-            }
+            ConsumirAPI consumirAPI = new ConsumirAPI();
+            String retornoAPI = consumirAPI.consumirAPI(endereco);
+            System.out.println(retornoAPI);
         }
 
         FileWriter escrita = new FileWriter("Filmes.txt");
