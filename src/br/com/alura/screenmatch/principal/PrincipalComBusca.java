@@ -5,13 +5,10 @@ import br.com.alura.screenmatch.modelos.TituloOmdb;
 import br.com.alura.screenmatch.services.ConsumirAPI;
 import br.com.alura.screenmatch.services.ConverteDados;
 import br.com.alura.screenmatch.services.EscreverArquivo;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import br.com.alura.screenmatch.services.LerArquivo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,25 +39,15 @@ public class PrincipalComBusca {
             ConverteDados converteDados = new ConverteDados();
             TituloOmdb tituloOmdb = converteDados.converteDados(retornoAPI, TituloOmdb.class);
             Titulo tituloConvertido = new Titulo(tituloOmdb);
-            System.out.println(tituloConvertido);
             titulos.add(tituloConvertido);
 
         }
         EscreverArquivo salvarTitulo = new EscreverArquivo();
         salvarTitulo.escreverArquivo(titulos);
 
-        try {
-            File arquivo = new File("Filmes.txt");
-            Scanner leitura = new Scanner(arquivo);
+        LerArquivo lerTitulo = new LerArquivo();
+        lerTitulo.lerArquivo();
 
-            while (leitura.hasNextLine()) {
-                String texto = leitura.nextLine();
-                System.out.println(texto);
-            }
-            leitura.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("Não foi possível encontrar o arquivo. Verifique se ele existe e  se o nome está correto");
-        }
 
         System.out.println("Programa finalizado");
     }
