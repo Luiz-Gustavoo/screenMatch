@@ -5,11 +5,12 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class LerArquivo {
-    File arquivo = new File("Filmes.txt");
+    ;
 
 
-    public void lerArquivo() throws FileNotFoundException {
+    public void lerArquivo(String arquivoLeitura) throws FileNotFoundException {
         try {
+            File arquivo = new File(arquivoLeitura);
             Scanner leitor = new Scanner(arquivo);
             while(leitor.hasNextLine()) {
                 String texto = leitor.nextLine();
