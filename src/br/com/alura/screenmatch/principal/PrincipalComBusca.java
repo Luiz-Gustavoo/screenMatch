@@ -46,7 +46,7 @@ public class PrincipalComBusca {
         salvarTitulo.escreverArquivo(titulos);
 
         LerArquivo lerTitulo = new LerArquivo();
-        lerTitulo.lerArquivo();
+        lerTitulo.lerArquivo("Filmes.txt");
 
 
         System.out.println("Programa finalizado");
